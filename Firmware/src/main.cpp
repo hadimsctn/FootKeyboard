@@ -2,13 +2,13 @@
 #include <BleKeyboard.h>
 
 BleKeyboard bleKeyboard;
-#define PIN_PEDAL01 17 //Connect pedal1 to port D2
+#define PIN_PEDAL01 15 //Connect pedal1 to port D2
 #define PEDAL_ACTIVE_LOGIC 0
 #define PEDAL_DEACTIVE_LOGIC 1
 enum KEYSTATUS
 {
-    KEYFREE = 0,    // phím không được bấm
-    KEYDOWN = 1,    // phím vừa được bấm
+    KEYFREE = 1,    // phím không được bấm
+    KEYDOWN = 0,    // phím được bấm
     KEYPRESS = 2,   // phím bấm giữ
     KEYUP = 3,      // phím vừa được nhả 
 };
@@ -24,10 +24,13 @@ void loop() {
   uint8_t tmp;
   if(bleKeyboard.isConnected()) {
     tmp = digitalRead(button_pins);
-    // Serial.println(tmp);
     if (tmp == KEYDOWN)
-    {     
-      //bleKeyboard.press(KEY_PAGE_UP);
+    {    
+      Serial.println(tmp);
+      delay(1000);
+      bleKeyboard.press(0x80);
+      bleKeyboard.press(0x81);
+      bleKeyboard.print("n");
     }
     // delay(1000);
 

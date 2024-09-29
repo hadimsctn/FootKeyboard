@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "eVy9jsYYD/dkx3dssrrfO1zppVdMGaoyZZphanrO0mg=",
+  "Hash": "GqE33CJcj7x24mpgGfjLHCh6tYqIBUjmmtoHvZOJfvY=",
   "Source": "Software.Server",
   "BasePath": "_content/Software.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "D:\\Work\\DATN\\Software\\software.client\\software.client.esproj",
+      "Identity": "D:\\Work\\FootKeyboard\\Software\\software.client\\software.client.esproj",
       "Version": 2,
       "Source": "software.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",

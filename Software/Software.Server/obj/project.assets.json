@@ -465,11 +465,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Work\\DATN\\Software\\Software.Server\\Software.Server.csproj",
+      "projectUniqueName": "D:\\Work\\FootKeyboard\\Software\\Software.Server\\Software.Server.csproj",
       "projectName": "Software.Server",
-      "projectPath": "D:\\Work\\DATN\\Software\\Software.Server\\Software.Server.csproj",
+      "projectPath": "D:\\Work\\FootKeyboard\\Software\\Software.Server\\Software.Server.csproj",
       "packagesPath": "C:\\Users\\hangu\\.nuget\\packages\\",
-      "outputPath": "D:\\Work\\DATN\\Software\\Software.Server\\obj\\",
+      "outputPath": "D:\\Work\\FootKeyboard\\Software\\Software.Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:5173",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "D:\\Work\\DATN\\Software\\Software.Server\\..\\software.client",
+"WorkingDirectory": "D:\\Work\\FootKeyboard\\Software\\Software.Server\\..\\software.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }
