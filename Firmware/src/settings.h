@@ -1,6 +1,7 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#pragma once
 
+#define LOW               0x0
+#define HIGH              0x1
 // Số lượng kí tự ban phím tối đa của một phím pedal
 #define MAX_KEYCODE 100
 // Số lượng pedal/nút bấm tối đa
@@ -16,7 +17,5 @@
 
 // define the number of bytes you want to access. 32 kí tự chứa thông tin phần BLE Name
 #define EEPROM_SIZE (MAX_KEYCODE * MAX_BUTTONS + MAX_BLE_NAME )
-
 void GetSettings(char  *blename, void * button_sendkeys);
 void SaveSettings(int key, char * value);
-#endif
