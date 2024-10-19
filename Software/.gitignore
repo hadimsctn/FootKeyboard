@@ -1,0 +1,45 @@
+# logs
+Codes/FootKeyboard.Web/logs/*
+
+# ignore development configuration
+Codes/FootKeyboard.Web/appsettings.Development.json
+Codes/FootKeyboard.Web/appsettings.Production.json
+editorconfig
+*.pubxml
+*profile.arm.json
+Codes/FootKeyboard.Web/.config/*
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+*.log
+/appsettings.Development.json
+/publishapi.bat
+/publishtimer.bat
+
+# Nuget Packages
+[Pp]ackages/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vs
+
+# Visual Studio Code
+UI/ui/.vscode/*
+.vs/*
+.vscode/*
