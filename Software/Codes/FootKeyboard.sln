@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootKeyboard.Web", "FootKeyboard.Web\FootKeyboard.Web.csproj", "{3A25AEC6-89A1-4534-99B5-B0E04CC7002E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootKeyboard.Web", "FootKeyboard.Web\FootKeyboard.Web.csproj", "{3A25AEC6-89A1-4534-99B5-B0E04CC7002E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootKeyboard.StartUp", "FootKeyboard.StartUp\FootKeyboard.StartUp.csproj", "{060FC652-AC90-4D07-8DAE-E9E1455CA7DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootKeyboard.Service", "FootKeyboard.Service\FootKeyboard.Service.csproj", "{E5D02324-E4FF-4795-8E7F-C5281A9943BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootKeyboard.Service.Intention", "FootKeyboard.Service.Intention\FootKeyboard.Service.Intention.csproj", "{6CF3C91B-AA1D-4A8F-A550-83E346D1A9D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootKeyboard.Model", "FootKeyboard.Model\FootKeyboard.Model.csproj", "{BF102C14-7E89-494E-8A36-61B9E01C1A5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{3A25AEC6-89A1-4534-99B5-B0E04CC7002E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A25AEC6-89A1-4534-99B5-B0E04CC7002E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A25AEC6-89A1-4534-99B5-B0E04CC7002E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{060FC652-AC90-4D07-8DAE-E9E1455CA7DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{060FC652-AC90-4D07-8DAE-E9E1455CA7DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{060FC652-AC90-4D07-8DAE-E9E1455CA7DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{060FC652-AC90-4D07-8DAE-E9E1455CA7DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5D02324-E4FF-4795-8E7F-C5281A9943BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D02324-E4FF-4795-8E7F-C5281A9943BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5D02324-E4FF-4795-8E7F-C5281A9943BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5D02324-E4FF-4795-8E7F-C5281A9943BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF3C91B-AA1D-4A8F-A550-83E346D1A9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF3C91B-AA1D-4A8F-A550-83E346D1A9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF3C91B-AA1D-4A8F-A550-83E346D1A9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF3C91B-AA1D-4A8F-A550-83E346D1A9D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF102C14-7E89-494E-8A36-61B9E01C1A5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF102C14-7E89-494E-8A36-61B9E01C1A5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF102C14-7E89-494E-8A36-61B9E01C1A5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF102C14-7E89-494E-8A36-61B9E01C1A5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

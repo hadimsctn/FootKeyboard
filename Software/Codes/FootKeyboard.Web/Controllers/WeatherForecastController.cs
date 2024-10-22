@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-
+using System.IO.Ports;
 namespace FootKeyboard.Web.Controllers
 {
     [ApiController]
@@ -28,6 +28,12 @@ namespace FootKeyboard.Web.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+        [HttpPost(Name = "GetWeatherForecast")]
+        public bool GetSerial()
+        {
+            SerialPort port = new SerialPort("COM4",115200);
+            return true;
         }
     }
 }
