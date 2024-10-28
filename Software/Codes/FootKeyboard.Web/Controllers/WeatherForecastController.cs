@@ -33,6 +33,7 @@ namespace FootKeyboard.Web.Controllers
         public bool GetSerial()
         {
             SerialPort port = new SerialPort("COM4",115200);
+            port.Handshake = Handshake.None;
             return true;
         }
     }
