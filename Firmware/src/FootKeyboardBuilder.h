@@ -1,17 +1,11 @@
-#pragma once
-
 #include "BleKeyboard.h"
+#include "BoardConfiguration.h"
 
-typedef char USER_FORMAT;
-typedef char ASCII_FORMAT; 
-#define ASCII_RELEASE_CODE  0xFF
-class FootKeyboardBuilder : public BleKeyboard{
+class FootKeyboardBuilder : public BleKeyboard
+{
 private:
     uint16_t keytokeytime;
 public:
-    FootKeyboardBuilder(std::string deviceName="Foot Keyboard",std::string deviceManufacturer = "Espressif", uint8_t batteryLevel = 100);
-    void SendKeys(const ASCII_FORMAT * cmd);
-    static int ConvertFormat(const char * USER_FORMAT, char * ASCII_FORMAT);
-    void SetKeyPerMinute( uint16_t kpm);  
-    //uint16_t GetKeyPerMinute( uint16_t kpm);
+    FootKeyboardBuilder(std::string deviceName = "ESP32 Keyboard", std::string deviceManufacturer = "Espressif", uint8_t batteryLevel = 100);
+    void SetKeyPerMinute( uint16_t kpm); 
 };
