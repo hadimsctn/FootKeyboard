@@ -9,7 +9,7 @@ KEYSTATUS button_status[MAX_BUTTONS]; /// Trạng thái hiện thời của các
 
 /// @brief Thời điểm của lần lặp trước đó
 unsigned long TimeOfPreLoop;
-#define DEFAUL_BLENAME "Foot Keyboard"
+
 FootKeyboardBuilder footKeyboardBuilder(DEFAUL_BLENAME, "NDT Device Manufacturer", 100);
 
 void connectBleBluetooth()
@@ -39,7 +39,11 @@ void setup()
 {
   Serial.begin(115200);
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.println("Starting BLE work!");
+  for (int i = 0; i < MAX_BUTTONS; i++)
+  {
+    pinMode(button_pins[i], INPUT_PULLUP);
+    button_status[i] = KEYFREE;
+  }
   connectBleBluetooth();
 }
 
