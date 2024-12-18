@@ -1,0 +1,15 @@
+/* styles.css */
+.container {
+  display: flex; /* Hiển thị các phần tử con theo chiều ngang */
+  gap: 10px;     /* Tạo khoảng cách giữa các component */
+}
+
+.scan-device{
+  width:25%;              /* Phân bổ không gian bằng nhau */
+}
+.device-setting{
+  width:50%;                /* Phân bổ không gian bằng nhau */
+}
+.list-code-button {
+  width:25%;                 /* Phân bổ không gian bằng nhau */
+}
