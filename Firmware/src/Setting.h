@@ -9,7 +9,7 @@ enum KEYSTATUS
     KEYPRESS = 2,   // phím bấm giữ
     KEYUP = 3,      // phím vừa được nhả 
 };
-
+#define PERIOD_OF_BUTTON_SCAN_LOOP  15
 /// Số lượng kí tự bàn phím tối đa của một phím pedal
 #define MAX_KEY_CODE 100
 
@@ -18,7 +18,7 @@ enum KEYSTATUS
 
 #define DEFAUL_BLENAME "Foot Keyboard"
 
-#define DEFAUL_FEATURE_PEDAL_00 "{PGDN}"
+#define DEFAUL_FEATURE_PEDAL_00 0x8f
 #define DEFAUL_FEATURE_PEDAL_01 "{PGUP}"
 #define DEFAUL_FEATURE_PEDAL_02 "{ENTER}"
 #define DEFAUL_FEATURE_PEDAL_03 "{CTRL}{F4}{~CTRL}"
@@ -29,3 +29,6 @@ enum KEYSTATUS
 
 void GetSettings(char * blename, void * button_sendkeys);
 void SaveSettings(int key, char * value);
+void SaveBleName(char * name);
+KEYSTATUS DetectKeyWordflow(uint8_t pre, uint8_t cur);
+bool DetermineKeyValue(char * Command, char ** key, char ** value);

@@ -10,3 +10,9 @@
 //Pedal logic config
 #define PEDAL_ACTIVE_LOGIC 0
 #define PEDAL_DEACTIVE_LOGIC 1
+
+typedef char ASCII_FORMAT; 
+typedef char USER_FORMAT;
+
+uint8_t charToHexDigit(char hex);
+uint8_t hexStringToUint8(String hex);

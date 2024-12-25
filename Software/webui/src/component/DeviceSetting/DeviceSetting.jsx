@@ -1,7 +1,16 @@
-import React from "react";
+import { SerialContext } from "../SerialContext";
 import "./DeviceSetting.css";
+import React, { useContext, useState } from "react";
+
+
 
 function DeviceSetting() {
+  const { sendMessage, readMessage, receivedMessage } = useContext(SerialContext);
+  const [message, setMessage] = useState("");
+
+  const handleSend = () => {
+    sendMessage(message);
+  };
   return (
     <div className="device-setting">
       <h2 className="title">Cấu hình Bluetooth</h2>

@@ -3,10 +3,12 @@ import "./ListCodeButton.css";
 
 function ListCodeButton() {
   const data = [
-    { id: 1, label: "Dòng 1", action: "Nội dung 1" },
-    { id: 2, label: "Dòng 2", action: "Nội dung 2" },
-    { id: 3, label: "Dòng 3", action: "Nội dung 3" },
-    { id: 4, label: "Dòng 4", action: "Nội dung 4" },
+    { id: 1, label: "Ctrl", action: "80" },
+    { id: 2, label: "Shift", action: "81" },
+    { id: 3, label: "Alt", action: "82" },
+    { id: 4, label: "Key Up Arrow", action: "DA" },
+    { id: 5, label: "Key Down Arrow", action: "D9" },
+
   ];
 
   return (
