@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <BleKeyboard.h>
 #include <Setting.h>
+#include <OledScreen.h>
 
 const uint button_pins[MAX_BUTTONS] = {PIN_PEDAL01, PIN_PEDAL02, PIN_PEDAL03, PIN_PEDAL04};
 uint button_prevalues[MAX_BUTTONS];   /// Giá trị trước đó, ở dạng digital 0/1 của nút bấm
@@ -15,53 +16,93 @@ FootKeyboardBuilder footKeyboardBuilder(DEFAUL_BLENAME, "NDT Device Manufacturer
 #define SERIAL_BUFFER_SIZE MAX_KEY_CODE + 3
 char SerialCommand[SERIAL_BUFFER_SIZE];
 char *cmdkey = SerialCommand;
-const char KEY01[] = "01";
-const char KEY02[] = "02";
-const char KEY03[] = "03";
-const char KEY04[] = "04";
-const char KEYNAME[] = "05";
+const char KEY00[] = "01";
+const char KEY01[] = "02";
+const char KEY02[] = "03";
+const char KEY03[] = "04";
+const char KEYNAME[] = "NAME";
+const char TimeKeyToKey[] = "TK";
+const char GetAll[] = "ALL";
 USER_FORMAT *cmdvalue = NULL;
 ASCII_FORMAT button_sendkeys[MAX_BUTTONS][MAX_KEY_CODE];
 
-void SerialConfiguration()
+void SerialConfiguration(char *SerialCommand)
 {
+  /// Phân tách mỗi dòng lệnh điều khiển thành 2 vùng. key=value.
+  /// Key ở điểm bắt đầu của commandline, nên luôn trùng với điểm đầu của lệnh
+  char *cmdkey = SerialCommand;
 
   uint8_t i, j;
-  int16_t res;
-  /// Nếu không có kết nối serial thì kết thúc luôn
-  if (Serial.available() <= 0)
-  {
-    return;
-  }
+  uint16_t res;
+  unsigned char ch;
 
-  /// Đọc lệnh từ Serial
-  int rlen = Serial.readBytesUntil('\n', SerialCommand, SERIAL_BUFFER_SIZE);
-  SerialCommand[rlen] = 0; // đánh dấu kết thúc chuỗi, nếu không sẽ dính với phần còn lại của lệnh trước.
   // Phân tích thành cặp key=value. Không phù hợp thì dừng luôn
   if (!DetermineKeyValue(SerialCommand, &cmdkey, &cmdvalue))
     return;
 
 #pragma region ASSIGN_COMMAND
   /// Gán lệnh cho các nút bấm/pedal tương ứng
-  if (strcasecmp(cmdkey, KEY01) == 0)
+  if (strcasecmp(cmdkey, KEY00) == 0)
   {
     i = 0;
   }
-  else if (strcasecmp(cmdkey, KEY02) == 0)
+  else if (strcasecmp(cmdkey, KEY01) == 0)
   {
     i = 1;
   }
-  else if (strcasecmp(cmdkey, KEY03) == 0)
+  else if (strcasecmp(cmdkey, KEY02) == 0)
   {
     i = 2;
   }
-  else if (strcasecmp(cmdkey, KEY04) == 0)
+  else if (strcasecmp(cmdkey, KEY03) == 0)
   {
     i = 3;
   }
+  else if (strcasecmp(cmdkey, TimeKeyToKey) == 0)
+  {
+    // Thiết lập tốc độ gửi phím
+    res = atoi(cmdvalue);
+    if (res == 0)
+    {
+      Serial.println("Error: toc do do phim phai la so nguyen duong.");
+    }
+    footKeyboardBuilder.SetKeyPerMinute(res);
+    SaveScalarSettings(res);
+    Serial.print("Info: thiet lap toc do go phim ");
+    Serial.print(res);
+    Serial.println(" key/phut.");
+    Serial.print("Info: OK");
+    return;
+  }
+  else if (strcasecmp(cmdkey, GetAll) == 0)
+  {
+    /// Hiện ra các thông số cấu hình
+    ///  1. Hiển thị tốc độ gửi phím
+    res = footKeyboardBuilder.GetKeyPerMinute();
+    Serial.print("Info: toc do go phim ");
+    Serial.print(res);
+    Serial.println(" key/phut.");
+    Serial.print("NameBLE:");
+    Serial.println(BleName);
+    ///  2. Hiển thị thông tin phím
+    for (i = 0; i < MAX_BUTTONS; i++)
+    {
+      Serial.print("Info: Button ");
+      Serial.print(i);
+      Serial.print(": ");
+      res = FootKeyboardBuilder::RevertFormat(button_sendkeys[i], SerialCommand);
+      Serial.println(SerialCommand);
+      Serial.print("     length=");
+      Serial.println(res);
+    }
+    Serial.print("Info: OK");
+  }
   else if (strcasecmp(cmdkey, KEYNAME) == 0)
   {
-    i = 4;
+    Serial.print("Info: Name Device=");
+    Serial.println(cmdvalue);
+    SaveBleName(cmdvalue);
+    ESP.restart();
   }
   else
   {
@@ -69,26 +110,20 @@ void SerialConfiguration()
     Serial.println("Error 02: button key is invalid.");
     return;
   }
-  if (i == 4)
+  // Chuyển đổi từ USER_FORMAT về thành ASCII_FORMAT. Tận dụng lại mảng SerialComamnd để tiết kiệm bộ nhớ, vì cmdValue chắc chắn chứa các cụm từ mô tả dài hơn.
+  res = FootKeyboardBuilder::ConvertFormat(cmdvalue, SerialCommand);
+  if (res < 0)
   {
-    Serial.print("Info: Name Device=");
-    Serial.println(cmdvalue);
-    SaveBleName(cmdvalue);
+    Serial.println("Error: UserFormat wrong at the character ");
+    Serial.print(-res);
+    return;
   }
-  else
-  {
-    // Debug
-    Serial.print("Info: Button=");
-    Serial.print(i);
-    Serial.print(", Hex=");
-    Serial.println(cmdvalue);
-    Serial.println(hexStringToUint8(cmdvalue));
-    for (j = 0; j <= res; j++)
-    { // <=res để copy cả kí tự 0
-      button_sendkeys[i][j] = hexStringToUint8(cmdvalue);
-    }
-    SaveSettings(i, button_sendkeys[i]);
+  // Áp dụng thành các phím kí tự của phím pedal
+  for (j = 0; j <= res; j++)
+  { // <=res để copy cả kí tự 0
+    button_sendkeys[i][j] = SerialCommand[j];
   }
+  SaveSettings(i, button_sendkeys[i]);
 #pragma endregion ASSIGN_COMMAND
 }
 
@@ -110,7 +145,13 @@ void connectBleBluetooth()
     led_blink = !led_blink;
     digitalWrite(LED_BUILTIN, led_blink);
     delay(100);
-    SerialConfiguration();
+    if (Serial.available() > 0)
+    {
+      /// Đọc lệnh từ Serial
+      int tmp = Serial.readBytesUntil('\n', SerialCommand, SERIAL_BUFFER_SIZE);
+      SerialCommand[tmp] = 0; // đánh dấu kết thúc chuỗi, nếu không sẽ dính với phần còn lại của lệnh trước.
+      SerialConfiguration(SerialCommand);
+    }
   }
   if (footKeyboardBuilder.isConnected())
     digitalWrite(LED_BUILTIN, HIGH);
@@ -125,15 +166,24 @@ void setup()
     pinMode(button_pins[i], INPUT_PULLUP);
     button_status[i] = KEYFREE;
   }
-  GetSettings(BleName, (void *)button_sendkeys);
+  /// Thời gian trễ giữa 2 lần gửi phím 
+  uint16_t k2k;
+  GetSettings(BleName, &k2k, (void *)button_sendkeys);
   footKeyboardBuilder.setName(BleName);
+  setupOled(BleName);
   connectBleBluetooth();
   TimeOfPreLoop = millis();
 }
 
 void loop()
 {
-  SerialConfiguration();
+  if (Serial.available() > 0)
+  {
+    /// Đọc lệnh từ Serial
+    int tmp = Serial.readBytesUntil('\n', SerialCommand, SERIAL_BUFFER_SIZE);
+    SerialCommand[tmp] = 0; // đánh dấu kết thúc chuỗi, nếu không sẽ dính với phần còn lại của lệnh trước.
+    SerialConfiguration(SerialCommand);
+  }
   if (footKeyboardBuilder.isConnected())
   {
     static uint8_t isDown;
@@ -163,17 +213,18 @@ void loop()
     }
     isDown = false;
     for (int i = 0; i < MAX_BUTTONS; i++)
-    {    
-        if (button_status[i] == KEYDOWN)
-        {
-            
-            footKeyboardBuilder.SendKeys(button_sendkeys[i]);       //bleKeyboardBuilder.write(KEY_PAGE_DOWN);
-            isDown = true;
-        }
+    {
+      if (button_status[i] == KEYDOWN)
+      {
+
+        footKeyboardBuilder.SendKeys(button_sendkeys[i]); // bleKeyboardBuilder.write(KEY_PAGE_DOWN);
+        isDown = true;
+        showKeyPress(i+1);
+      }
     }
     if (isDown)
     {
-      digitalWrite(LED_BUILTIN, LOW);
+      digitalWrite(LED_BUILTIN, LOW);     
     }
     else
     {

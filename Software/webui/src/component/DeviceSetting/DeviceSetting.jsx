@@ -22,33 +22,34 @@ function DeviceSetting() {
           <input type="text" placeholder="Nhập tên thiết bị" />
         </div>
         <div className="info-item">
-          <label>Tên mạng bluetooth:</label>
-          <input type="text"/>
-        </div>
-        <div className="info-item">
           <label>Độ trễ giữa các phím:</label>
-          <input type="number"/>
+          <input type="number" />
         </div>
       </div>
 
       {/* Cấu hình nút bấm */}
       <div className="button-config">
         <h3>Cấu hình nút bấm</h3>
-        {[1, 2, 3, 4].map((btn) => (
-          <div key={btn} className="button-row">
-            <span>Button {btn}</span>
-            <select>
-              <option value="action1">Hành động 1</option>
-              <option value="action2">Hành động 2</option>
-            </select>
-            <label>Edit:</label>
-            <div className="info-item">
-              <input type="number" placeholder="Nhập mã button" />
-            </div>
-          </div>
-        ))}
+        <label>Button 1:</label>
+        <div className="info-item">
+          <input type="text" placeholder="Nhập mã cấu hình button. Ví dụ: {SHIFT}H{~SHIFT}ello" />
+        </div>
+        <label>Button 2:</label>
+        <div className="info-item">
+          <input type="text" placeholder="Nhập mã cấu hình button. Ví dụ: {SHIFT}H{~SHIFT}ello" />
+        </div>
+        <label>Button 3:</label>
+        <div className="info-item">
+          <input type="text" placeholder="Nhập mã cấu hình button. Ví dụ: {SHIFT}H{~SHIFT}ello" />
+        </div>
+        <label>Button 4:</label>
+        <div className="info-item">
+          <input type="text" placeholder="Nhập mã cấu hình button. Ví dụ: {SHIFT}H{~SHIFT}ello" />
+        </div>
       </div>
-
+      <div className="actions">
+        <button className="check-btn">Cập nhật thiết lập cho button</button>
+      </div>
       {/* Tính năng nâng cao */}
       <div className="advanced">
         <h3>Advance for Experts</h3>
@@ -63,10 +64,7 @@ function DeviceSetting() {
       </div>
 
       {/* Các nút hành động */}
-      <div className="actions">
-        <button className="review-btn">Review bảng mã</button>
-        <button className="check-btn">Check cú pháp</button>
-      </div>
+      
     </div>
   );
 }

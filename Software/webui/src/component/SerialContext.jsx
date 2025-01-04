@@ -17,7 +17,7 @@ export const SerialProvider = ({ children }) => {
         setOutput("Connected to serial device!");
 
         // Gửi tin nhắn ngay khi kết nối thành công
-        await sendData("01=d6",selectedPort);
+        await sendData("ALL=");
 
         // Đọc dữ liệu phản hồi sau khi gửi tin nhắn
         await readData(selectedPort);
@@ -29,8 +29,8 @@ export const SerialProvider = ({ children }) => {
       setOutput("Web Serial API is not supported in your browser.");
     }
   };
-  const sendData = async (message,port) => {
-    if (port) {
+  const sendData = async (message) => {
+    if (true) {
       const encoder = new TextEncoderStream();
       const writableStreamClosed = encoder.readable.pipeTo(port.writable);
       const writer = encoder.writable.getWriter();
@@ -72,6 +72,8 @@ export const SerialProvider = ({ children }) => {
         sendData,
         receivedData,
         output,
+        port, 
+        setPort
       }}
     >
       {children}

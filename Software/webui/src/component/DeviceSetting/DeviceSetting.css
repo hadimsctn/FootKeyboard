@@ -41,7 +41,7 @@
 }
 
 .button-row {
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   margin-bottom: 10px;
 }
@@ -71,7 +71,7 @@
 }
 
 .advanced textarea {
-  width: 100%;
+  width: 95%;
   height: 60px;
   margin-top: 5px;
   padding: 5px;

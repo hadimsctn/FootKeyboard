@@ -24,11 +24,12 @@ enum KEYSTATUS
 #define DEFAUL_FEATURE_PEDAL_03 "{CTRL}{F4}{~CTRL}"
 
 #define MAX_BLE_NAME 32
+#define MAX_SCALAR 16
+#define EEPROM_SIZE (MAX_KEY_CODE * MAX_BUTTONS + MAX_SCALAR + MAX_BLE_NAME )
 
-#define EEPROM_SIZE (MAX_KEY_CODE * MAX_BUTTONS + MAX_BLE_NAME )
-
-void GetSettings(char * blename, void * button_sendkeys);
+void GetSettings(char * blename, uint16_t * time_k2k, void * button_sendkeys);
 void SaveSettings(int key, char * value);
 void SaveBleName(char * name);
+void SaveScalarSettings(uint16_t time_k2k);
 KEYSTATUS DetectKeyWordflow(uint8_t pre, uint8_t cur);
 bool DetermineKeyValue(char * Command, char ** key, char ** value);

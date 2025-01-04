@@ -23,8 +23,6 @@ const ScanDevice = () => {
           ))}
         </tbody>
       </table>
-      <p>Status: {output}</p>
-      <p>Received Data: {receivedData}</p>
     </div>
   );
 }
