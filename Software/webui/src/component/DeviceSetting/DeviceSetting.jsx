@@ -5,7 +5,6 @@ import React, { useContext, useState } from "react";
 
 
 function DeviceSetting() {
-  const { sendMessage, readMessage, receivedMessage } = useContext(SerialContext);
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
@@ -19,11 +18,11 @@ function DeviceSetting() {
       <div className="device-info">
         <div className="info-item">
           <label>Tên thiết bị:</label>
-          <input type="text" placeholder="Nhập tên thiết bị" />
+          <input type="text"placeholder="Nhập tên thiết bị" />
         </div>
         <div className="info-item">
           <label>Độ trễ giữa các phím:</label>
-          <input type="number" />
+          <input type="number"placeholder="Nhập số"  />
         </div>
       </div>
 
@@ -51,17 +50,12 @@ function DeviceSetting() {
         <button className="check-btn">Cập nhật thiết lập cho button</button>
       </div>
       {/* Tính năng nâng cao */}
-      <div className="advanced">
-        <h3>Advance for Experts</h3>
+      {/* <div className="advanced">
+        <h3>Receive message:</h3>
         <div>
-          <label>Send message:</label>
-          <textarea placeholder="Nhập tin nhắn gửi..." />
+          <textarea value={receivedData} readOnly placeholder="Nhận tin nhắn..." />
         </div>
-        <div>
-          <label>Receive message:</label>
-          <textarea placeholder="Nhận tin nhắn..." />
-        </div>
-      </div>
+      </div> */}
 
       {/* Các nút hành động */}
       
