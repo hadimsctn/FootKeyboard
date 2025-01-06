@@ -10,9 +10,9 @@ const ScanDevice = () => {
   return (
     <div className="ScanDevice">
       <table className="ScanDevice-table">
-        <thead onClick={connectToSerial} >
+        <thead>
           <tr>
-            <th>Scan Device</th>
+            <th>Foot Keyboard</th>
           </tr>
         </thead>
         <tbody>
