@@ -79,23 +79,20 @@ void SerialConfiguration(char *SerialCommand)
     /// Hiện ra các thông số cấu hình
     ///  1. Hiển thị tốc độ gửi phím
     res = footKeyboardBuilder.GetKeyPerMinute();
-    Serial.print("Info: toc do go phim ");
-    Serial.print(res);
-    Serial.println(" key/phut.");
-    Serial.print("NameBLE:");
+    Serial.print("Info: ");
+    Serial.println(res);
+    Serial.print("NameBLE: ");
     Serial.println(BleName);
     ///  2. Hiển thị thông tin phím
     for (i = 0; i < MAX_BUTTONS; i++)
     {
-      Serial.print("Info: Button ");
-      Serial.print(i);
+      Serial.print("Button ");
+      Serial.print(i+1);
       Serial.print(": ");
       res = FootKeyboardBuilder::RevertFormat(button_sendkeys[i], SerialCommand);
       Serial.println(SerialCommand);
-      Serial.print("     length=");
-      Serial.println(res);
     }
-    Serial.print("Info: OK");
+    return;
   }
   else if (strcasecmp(cmdkey, KEYNAME) == 0)
   {
@@ -124,6 +121,7 @@ void SerialConfiguration(char *SerialCommand)
     button_sendkeys[i][j] = SerialCommand[j];
   }
   SaveSettings(i, button_sendkeys[i]);
+  Serial.println("Update Data successfully");
 #pragma endregion ASSIGN_COMMAND
 }
 
