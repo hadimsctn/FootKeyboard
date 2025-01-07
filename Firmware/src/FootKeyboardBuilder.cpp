@@ -107,12 +107,12 @@ TableCode tableCode[] = {
 int FootKeyboardBuilder::ConvertFormat(const USER_FORMAT *request, ASCII_FORMAT *command)
 {
     uint8_t i, oi;
-    int16_t start_brace_i;
+    uint16_t start_brace_i;
     char ch;
 
     i = 0;
     oi = 0;
-    start_brace_i = -1; // <0 tức là chưa tìm thấy kí tự {
+    start_brace_i = 0; // 0 tức là chưa tìm thấy kí tự {
 
     if (request == NULL)
     {
@@ -132,7 +132,6 @@ int FootKeyboardBuilder::ConvertFormat(const USER_FORMAT *request, ASCII_FORMAT 
         else if (ch == '{')
         {
             /// Đã tìm thấy điểm bắt đầu ngoặc
-            start_brace_i = i;
             /// Tìm điểm cuối của ngoặc
             i = i + 1;
             // Tính checksum là tổng mã ascii của tất cả các kí tự x vị trí, áp dụng dể tìm chuỗi cho nhanh. bản chất là đánh indexing chuỗi
@@ -145,7 +144,7 @@ int FootKeyboardBuilder::ConvertFormat(const USER_FORMAT *request, ASCII_FORMAT 
             // Nếu không tìm thấy dấu đóng }, tức là lỗi cú pháp rồi, loại.
             if (request[i] == 0)
             {
-                oi = -start_brace_i; // Lỗi ở vị trí dấu ngoặc
+                oi =start_brace_i;
                 Serial.print("Debug: } not found.");
                 break;
             }
@@ -153,7 +152,7 @@ int FootKeyboardBuilder::ConvertFormat(const USER_FORMAT *request, ASCII_FORMAT 
             {
                 command[oi] = ASCII_RELEASE_CODE;
                 oi++;
-                start_brace_i = -1; // Shift, Ctrl, Alt
+                start_brace_i = 1; // Shift, Ctrl, Alt
             }
             // Lúc này command[start_brace_i:i] chứa chuỗi như {ENTER},  {PGUP}
             // Xác định mã của các phím đặc biệt và gán vào command.
@@ -165,15 +164,15 @@ int FootKeyboardBuilder::ConvertFormat(const USER_FORMAT *request, ASCII_FORMAT 
                     command[oi] = tableCode[j].code;
                     oi++;
                     // Đánh dấu đã xử lý xong ngoặc
-                    start_brace_i = -1; // Shift, Ctrl, Alt
+                    start_brace_i = 1; // Shift, Ctrl, Alt
                     break;
                 }
             }
             // Nếu không tìm thấy cụm từ khóa, tức là lỗi cú pháp rồi, loại.
-            if (start_brace_i != -1)
+            if (start_brace_i == 0)
             {
-                oi = -start_brace_i - 1; // Lỗi ở vị trí dấu ngoặc
-                Serial.print("Debug: checksum not found, ");
+                oi = start_brace_i; // Lỗi ở vị trí dấu ngoặc
+                Serial.print("Debug: code not found");
                 break;
             }
         }
@@ -184,7 +183,6 @@ int FootKeyboardBuilder::ConvertFormat(const USER_FORMAT *request, ASCII_FORMAT 
         }
         i++; // CHuyển sang kí tự tiếp theo
     }
-
     return oi;
 }
 int FootKeyboardBuilder::RevertFormat(const ASCII_FORMAT *sascii, char *suser)

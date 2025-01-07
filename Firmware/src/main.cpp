@@ -109,10 +109,8 @@ void SerialConfiguration(char *SerialCommand)
   }
   // Chuyển đổi từ USER_FORMAT về thành ASCII_FORMAT. Tận dụng lại mảng SerialComamnd để tiết kiệm bộ nhớ, vì cmdValue chắc chắn chứa các cụm từ mô tả dài hơn.
   res = FootKeyboardBuilder::ConvertFormat(cmdvalue, SerialCommand);
-  if (res < 0)
+  if (res == 0)
   {
-    Serial.println("Error: UserFormat wrong at the character ");
-    Serial.print(-res);
     return;
   }
   // Áp dụng thành các phím kí tự của phím pedal

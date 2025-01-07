@@ -76,7 +76,7 @@ export const SerialProvider = ({ children }) => {
       try {
         const { value, done } = await reader.read();
         data+=value;  
-        alert("Cập nhật nút bấm thành công, F5 để tiếp tục");
+        alert(data);
         
          // Lưu dữ liệu nhận được
       } catch (error) {
