@@ -68,9 +68,6 @@ void SerialConfiguration(char *SerialCommand)
     }
     footKeyboardBuilder.SetKeyPerMinute(res);
     SaveScalarSettings(res);
-    Serial.print("Info: thiet lap toc do go phim ");
-    Serial.print(res);
-    Serial.println(" key/phut.");
     Serial.print("Info: OK");
     return;
   }
@@ -96,8 +93,6 @@ void SerialConfiguration(char *SerialCommand)
   }
   else if (strcasecmp(cmdkey, KEYNAME) == 0)
   {
-    Serial.print("Info: Name Device=");
-    Serial.println(cmdvalue);
     SaveBleName(cmdvalue);
     ESP.restart();
   }
