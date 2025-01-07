@@ -211,7 +211,7 @@ void loop()
     }
     isDown = false;
     for (int i = 0; i < MAX_BUTTONS; i++)
-    {
+    {            
       if (button_status[i] == KEYDOWN)
       {
 
@@ -231,6 +231,6 @@ void loop()
   }
   else
   {
-    connectBleBluetooth();
+    ESP.restart();
   }
 }
